@@ -1,39 +1,43 @@
-# recuperatorio-todo-tsdsf-2do
+# Recuperatorio TSDSF 2do, Programacion Front End 
 
-This template should help get you started developing with Vue 3 in Vite.
+## Instrucciones
 
-## Recommended IDE Setup
+### MODELAJE
+- Crear modelo Task, que incluye un id (number), una tarea (string) y un status (boolean).
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Crear un Modelo TaskState, que incluye un booleano loading, y una lista data de Task[]
 
-## Type Support for `.vue` Imports in TS
+- Crear un Modelo ThemeState que almacene los atributos isDark booleano y mode, que es un string que indica si el  tema es light o dark.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### ESTADO DE LA APLICACION
+- Crear dos store con pinia que incluya los modelos TaskState y ThemeState:
 
-## Customize configuration
+* ThemeStore: debe contener una constante useThemeStore usando defineStore, que implemente el modelo ThemeState y un metodo para cambiar el tema. El estado inicial debe setearse en isDark: false, y  mode: 'Light Mode'. El metodo unicamente debe cambiar el isDark a !isDark y el string de mode a 'Dark / Light Mode' segun corresponda.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+* TaskStore debe contener una constante useTaskStore usando defineStore, que implemente el modelo TaskState. Definir el estado incial en loading false, data igual a una lista vacia. Se deberan crear los siguientes metodos:
+- **addTask**, agrega una nueva tarea a la lista en data usando el metodo de array push.
+- **removeTask**, recibe un tipo Task como argumento quita una nueva tarea de la lista en data usando el metodo filter.
+- **updateTaskStatus**, recibe un argumento de tipo Task y busca el indice en la lista usando el metodo findIndex, para luego instanciar el elemento Task de la lista por su indice y modificar su status a falso o verdadero segun corresponda.
 
-## Project Setup
+### Opcionalmente (no se calificara si esta mal) son los metodos: <br>
+**showCompleted**: actualiza data para mostrar solo tareas con status completo <br>
+**showPending**: actualiza data para mostrar solo tareas con status pendiente <br>
+**showAll**: actualiza data para mostrar todos los datos.
 
-```sh
-npm install
-```
 
-### Compile and Hot-Reload for Development
+### IMPLEMENTACION EN COMPONENTES
 
-```sh
-npm run dev
-```
+#### App.vue
+- Debemos importar nuestro useThemeStore, e instanciarlo en una variable reactiva.
+- Luego utilizarlo en las directivas indicadas
 
-### Type-Check, Compile and Minify for Production
+#### InputComponent.vue
+- Debemos importar nuestro useThemeStore, e instanciarlo en una variable reactiva.
+- Debemos importar nuestro useTaskStore, e instanciarlo en una variable reactiva
+- Luego utilizarlos en las directivas indicadas
 
-```sh
-npm run build
-```
+#### TodoListComponent.vue
+- Debemos importar nuestro useThemeStore, e instanciarlo en una variable reactiva.
+- Debemos importar nuestro useTaskStore, e instanciarlo en una variable reactiva
+- Luego utilizarlos en las directivas indicadas
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
